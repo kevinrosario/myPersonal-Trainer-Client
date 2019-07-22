@@ -34,7 +34,7 @@ class App extends Component {
             <SignOut clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword user={user} />
+            <ChangePassword open={true} user={user} />
           )} />
         </main>
       </SnackbarProvider>

@@ -34,7 +34,7 @@ function UserAuth (props) {
   const handleSubmit = event => {
     event.preventDefault()
     const { enqueueSnackbar, setUser } = props
-    console.log(credentials)
+
     if (!signUpForm) {
       signIn(credentials)
         .then(res => setUser(res.data.user))

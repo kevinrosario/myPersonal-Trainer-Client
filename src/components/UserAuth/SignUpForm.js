@@ -2,7 +2,7 @@ import React from 'react'
 
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
+import FormTextField from '../Shared/FormTextField'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -51,44 +51,23 @@ const SignUpForm = props => {
           Sign Up
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            required
-            fullWidth
-            autoFocus
-            onChange={handleChange}
-            value={email}
-            variant="outlined"
-            margin="normal"
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+          <FormTextField
+            handleChangeFunction={handleChange}
+            setValue={email}
+            setLabel={'Email'}
+            setID={'email'}
           />
-          <TextField
-            required
-            fullWidth
-            onChange={handleChange}
-            value={password}
-            variant="outlined"
-            margin="normal"
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
+          <FormTextField
+            handleChangeFunction={handleChange}
+            setValue={password}
+            setLabel={'Password'}
+            setID={'password'}
           />
-          <TextField
-            required
-            fullWidth
-            onChange={handleChange}
-            value={passwordConfirmation}
-            variant="outlined"
-            margin="normal"
-            name="passwordConfirmation"
-            label="Password Confirmation"
-            type="password"
-            id="passwordConfirmation"
-            autoComplete="current-password"
+          <FormTextField
+            handleChangeFunction={handleChange}
+            setValue={passwordConfirmation}
+            setLabel={'Password'}
+            setID={'passwordConfirmation'}
           />
           <Button
             fullWidth

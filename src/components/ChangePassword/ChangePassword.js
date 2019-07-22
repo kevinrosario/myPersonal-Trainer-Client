@@ -1,79 +1,79 @@
-// import React, { Component } from 'react'
-// import { withRouter } from 'react-router-dom'
-//
-// import { changePassword } from '../../api/auth'
-// import messages from '../AutoDismissAlert/messages'
-//
-// class ChangePassword extends Component {
-//   constructor () {
-//     super()
-//
-//     this.state = {
-//       oldPassword: '',
-//       newPassword: ''
-//     }
-//   }
-//
-//   handleChange = event => this.setState({
-//     [event.target.name]: event.target.value
-//   })
-//
-//   onChangePassword = event => {
-//     event.preventDefault()
-//
-//     const { alert, history, user } = this.props
-//
-//     changePassword(this.state, user)
-//       .then(() => alert(messages.changePasswordSuccess, 'success'))
-//       .then(() => history.push('/'))
-//       .catch(error => {
-//         console.error(error)
-//         this.setState({ oldPassword: '', newPassword: '' })
-//         alert(messages.changePasswordFailure, 'danger')
-//       })
-//   }
-//
-//   render () {
-//     const { oldPassword, newPassword } = this.state
-//
-//     return (
-//       <div className="row">
-//         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-//           <h3>Change Password</h3>
-//           <Form onSubmit={this.onChangePassword}>
-//             <Form.Group controlId="oldPassword">
-//               <Form.Label>Old password</Form.Label>
-//               <Form.Control
-//                 required
-//                 name="oldPassword"
-//                 value={oldPassword}
-//                 type="password"
-//                 placeholder="Old Password"
-//                 onChange={this.handleChange}
-//               />
-//             </Form.Group>
-//             <Form.Group controlId="newPassword">
-//               <Form.Label>New Password</Form.Label>
-//               <Form.Control
-//                 required
-//                 name="newPassword"
-//                 value={newPassword}
-//                 type="password"
-//                 placeholder="New Password"
-//                 onChange={this.handleChange}
-//               />
-//             </Form.Group>
-//             <Button
-//               variant="primary"
-//               type="submit"
-//             >
-//               Submit
-//             </Button>
-//           </Form>
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-//
-// export default withRouter(ChangePassword)
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { changePassword } from '../../api/auth'
+import { withSnackbar } from 'notistack'
+import messages from '../AutoDismissAlert/messages'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import FormTextField from '../Shared/FormTextField'
+
+function ChangePassword (props) {
+  const [open, setOpen] = useState(props.open)
+  const [credentials, setCredentials] = useState({ oldPassword: '', newPassword: '' })
+
+  function handleClose () {
+    const { history } = props
+    setOpen(false)
+    history.push('/')
+  }
+
+  const handleChange = event => {
+    event.persist()
+    setCredentials(credentials => ({ ...credentials, [event.target.name]: event.target.value }))
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    const { enqueueSnackbar, history, user } = props
+
+    changePassword(credentials, user)
+      .then(() => enqueueSnackbar(messages.changePasswordSuccess, { variant: 'success' }))
+      .then(() => history.push('/'))
+      .catch(error => {
+        console.error(error)
+        setCredentials({ oldPassword: '', newPassword: '' })
+        enqueueSnackbar(messages.changePasswordFailure, { variant: 'error' })
+      })
+  }
+
+  return (
+    <div>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogContent>
+          <form noValidate>
+            <FormTextField
+              handleChangeFunction={handleChange}
+              setValue={credentials.oldPassword}
+              setLabel={'Old Password'}
+              setID={'oldPassword'}
+            />
+            <FormTextField
+              handleChangeFunction={handleChange}
+              setValue={credentials.newPassword}
+              setLabel={'New Password'}
+              setID={'newPassword'}
+            />
+            <Button
+              fullWidth
+              onClick={handleSubmit}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Change
+            </Button>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  )
+}
+
+export default withSnackbar(withRouter(ChangePassword))

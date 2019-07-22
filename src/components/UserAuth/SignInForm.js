@@ -1,8 +1,6 @@
 import React from 'react'
-
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -10,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
+import FormTextField from '../Shared/FormTextField'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -52,31 +51,17 @@ const SignInForm = props => {
           Sign in
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            required
-            fullWidth
-            onChange={handleChange}
-            value={email}
-            variant="outlined"
-            margin="normal"
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
+          <FormTextField
+            handleChangeFunction={handleChange}
+            setValue={email}
+            setLabel={'Email'}
+            setID={'email'}
           />
-          <TextField
-            required
-            fullWidth
-            onChange={handleChange}
-            value={password}
-            variant="outlined"
-            margin="normal"
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
+          <FormTextField
+            handleChangeFunction={handleChange}
+            setValue={password}
+            setLabel={'Password'}
+            setID={'password'}
           />
           <Button
             fullWidth
