@@ -8,8 +8,13 @@ import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
+import Home from '@material-ui/icons/Home'
+import ExitToApp from '@material-ui/icons/ExitToApp'
+import SettingsApplications from '@material-ui/icons/SettingsApplications'
+import Input from '@material-ui/icons/Input'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -51,9 +56,11 @@ const useStyles = makeStyles(theme => ({
 const authenticatedOptions = (
   <Fragment>
     <ListItem button component={Link} to="/change-password" key={'change-password'}>
+      <ListItemIcon><SettingsApplications /></ListItemIcon>
       <ListItemText primary={'Change-Password'}/>
     </ListItem>
     <ListItem button component={Link} to="/sign-out" key={'sign-out'}>
+      <ListItemIcon><ExitToApp /></ListItemIcon>
       <ListItemText primary={'Sign-Out'}/>
     </ListItem>
   </Fragment>
@@ -61,11 +68,9 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <Fragment>
-    <ListItem button component={Link} to="/sign-in" key={'sign-in'}>
-      <ListItemText primary={'Sign-In'} href="#sign-in"/>
-    </ListItem>
-    <ListItem button component={Link} to="/sign-up" key={'sign-up'}>
-      <ListItemText primary={'Sign-Up'} />
+    <ListItem button component={Link} to="/user-auth" key={'sign-in'}>
+      <ListItemIcon><Input /></ListItemIcon>
+      <ListItemText primary={'Sign-In'} />
     </ListItem>
   </Fragment>
 )
@@ -73,6 +78,7 @@ const unauthenticatedOptions = (
 const alwaysOptions = (
   <Fragment>
     <ListItem button component={Link} to="/" key={'home'}>
+      <ListItemIcon><Home /></ListItemIcon>
       <ListItemText primary={'Home'} />
     </ListItem>
   </Fragment>
@@ -120,7 +126,6 @@ const Header = (props) => {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="Mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -132,7 +137,7 @@ const Header = (props) => {
               paper: classes.drawerPaper
             }}
             ModalProps={{
-              keepMounted: true // Better open performance on mobile.
+              keepMounted: true
             }}
           >
             {drawer}
