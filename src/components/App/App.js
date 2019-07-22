@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-
+import { SnackbarProvider } from 'notistack'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
-import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
 import Header from '../Header/Header'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
@@ -14,8 +13,7 @@ class App extends Component {
     super()
 
     this.state = {
-      user: null,
-      alerts: []
+      user: null
     }
   }
 
@@ -23,37 +21,27 @@ class App extends Component {
 
   clearUser = () => this.setState({ user: null })
 
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
-  }
-
   render () {
-    const { alerts, user } = this.state
+    const { user } = this.state
 
     return (
-      <Fragment>
+      <SnackbarProvider>
         <Header user={user} />
-        {alerts.map((alert, index) => (
-          <AutoDismissAlert
-            key={index}
-            alert={alert}
-          />
-        ))}
         <main className="container">
           <Route path='/sign-up' render={() => (
-            <SignUp alert={this.alert} setUser={this.setUser} />
+            <SignUp setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
-            <SignIn alert={this.alert} setUser={this.setUser} />
+            <SignIn open={true} setUser={this.setUser} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
+            <SignOut clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword alert={this.alert} user={user} />
+            <ChangePassword user={user} />
           )} />
         </main>
-      </Fragment>
+      </SnackbarProvider>
     )
   }
 }
