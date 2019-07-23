@@ -6,6 +6,8 @@ import Header from '../Header/Header'
 import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import MainScreen from './../MainScreen/MainScreen'
+import WorkoutTemplate from './../WorkoutTemplate/WorkoutTemplate'
 
 class App extends Component {
   constructor () {
@@ -36,6 +38,13 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword open={true} user={user} />
           )} />
+          <AuthenticatedRoute user={user} path='/create-workout' render={() => (
+            <WorkoutTemplate user={user} />
+          )} />
+          {user
+            ? <AuthenticatedRoute user={user} exact path='/' render={() => (
+              <MainScreen user={user} />
+            )} /> : ''}
         </main>
       </SnackbarProvider>
     )
