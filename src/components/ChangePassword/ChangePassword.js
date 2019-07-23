@@ -14,7 +14,7 @@ function ChangePassword (props) {
   const [open, setOpen] = useState(props.open)
   const [credentials, setCredentials] = useState({ oldPassword: '', newPassword: '' })
 
-  function handleClose () {
+  const handleClose = () => {
     const { history } = props
     setOpen(false)
     history.push('/')

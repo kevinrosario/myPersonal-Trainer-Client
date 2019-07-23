@@ -92,7 +92,7 @@ const Header = (props) => {
   const theme = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
 
-  function handleDrawerToggle () {
+  const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
 

@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
 import { getTemplate } from '../../api/workout'
+import ExercisesDialog from './ExercisesDialog'
 
 // Styling
 const useStyles = makeStyles(theme => ({
@@ -32,16 +33,21 @@ const useStyles = makeStyles(theme => ({
 function MainScreen (props) {
   const classes = useStyles()
   const [workoutTemplate, setWorkoutTemplate] = useState({ name: '', exercises: [] })
+  const [exercisesDialog, setExercisesDialog] = useState(false)
 
   useEffect(() => {
     getTemplate(props.user, props.id)
       .then(response => setWorkoutTemplate(response.data.workoutTemplate))
   }, [workoutTemplate])
 
+  const exercisesDialogHandler = event => {
+    setExercisesDialog(!exercisesDialog)
+  }
+
   return (
     <div>
-      {workoutTemplate
-        ? ''
+      {exercisesDialog
+        ? <ExercisesDialog open={true} dialogHandler={exercisesDialogHandler} />
         : ''}
 
       <div className={classes.div}>
@@ -49,7 +55,7 @@ function MainScreen (props) {
           <FitnessCenter className={classes.extendedIcon} />
         Start
         </Fab>
-        <Fab color="secondary" aria-label="Add" className={classes.add}>
+        <Fab color="secondary" onClick={exercisesDialogHandler} aria-label="Add" className={classes.add}>
           <AddIcon />
         </Fab>
       </div>

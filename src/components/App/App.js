@@ -50,5 +50,9 @@ class App extends Component {
     )
   }
 }
+// Debugging
+// <Route user={user} path='/' render={() => (
+//   <ExercisesDialog open={true} user={user} />
+// )} />
 
 export default App

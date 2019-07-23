@@ -10,4 +10,6 @@ if (window.location.hostname === 'localhost') {
   apiUrl = apiUrls.production
 }
 
+export const thirdPartyAPI = 'https://wger.de/api/v2/exercise/?format=json&status=2'
+
 export default apiUrl

@@ -17,11 +17,11 @@ function UserAuth (props) {
   const [signUpForm, setSignUpForm] = useState(false)
   const [credentials, setCredentials] = useState({ email: '', password: '', passwordConfirmation: '' })
 
-  function handleForms () {
+  const handleForms = () => {
     setSignUpForm(!signUpForm)
   }
 
-  function handleClose () {
+  const handleClose = () => {
     const { history } = props
     setOpen(false)
     history.push('/')
