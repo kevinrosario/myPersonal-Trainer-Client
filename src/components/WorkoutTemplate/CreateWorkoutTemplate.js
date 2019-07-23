@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
-import { getTemplate } from '../../api/workout'
+// import { getTemplate } from '../../api/workout'
 import ExercisesDialog from './ExercisesDialog'
 
 // Styling
@@ -32,13 +32,13 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function MainScreen (props) {
   const classes = useStyles()
-  const [workoutTemplate, setWorkoutTemplate] = useState({ name: '', exercises: [] })
+  // const [workoutTemplate, setWorkoutTemplate] = useState({ name: '', exercises: [] })
   const [exercisesDialog, setExercisesDialog] = useState(false)
 
-  useEffect(() => {
-    getTemplate(props.user, props.id)
-      .then(response => setWorkoutTemplate(response.data.workoutTemplate))
-  }, [workoutTemplate])
+  // useEffect(() => {
+  //   getTemplate(props.user, props.id)
+  //     .then(response => setWorkoutTemplate(response.data.workoutTemplate))
+  // }, [workoutTemplate])
 
   const exercisesDialogHandler = event => {
     setExercisesDialog(!exercisesDialog)

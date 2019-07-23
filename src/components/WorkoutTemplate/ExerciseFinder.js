@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
-import {} from '../../api/auth'
+import { getExercises } from '../../api/workout'
 import { muscles, equipments, categories } from './apiConstants'
-
 import { makeStyles } from '@material-ui/core/styles'
+
 import Button from '@material-ui/core/Button'
 import InputLabel from '@material-ui/core/InputLabel'
 import Container from '@material-ui/core/Container'
@@ -44,8 +43,8 @@ const useStyles = makeStyles(theme => ({
 function ExerciseFinder (props) {
   const classes = useStyles()
   const [parameters, setParameters] = useState({
-    primaryMuscle: '',
-    secondaryMuscle: '',
+    muscles: '',
+    muscles_secondary: '',
     category: '',
     equipment: ''
   })
@@ -59,6 +58,9 @@ function ExerciseFinder (props) {
 
   const handleSubmit = event => {
     event.preventDefault()
+    getExercises(parameters)
+      .then(response => props.setExerciseList(response.data.results))
+      .catch(console.error)
   }
 
   return (
@@ -70,14 +72,14 @@ function ExerciseFinder (props) {
         </Typography>
         <form className={classes.form} noValidate>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="primaryMuscle">Primary Muscle</InputLabel>
+            <InputLabel htmlFor="muscles">Primary Muscle</InputLabel>
             <Select
               native
-              value={parameters.age}
-              onChange={handleChange('primaryMuscle')}
+              value={parameters.muscles}
+              onChange={handleChange('muscles')}
               inputProps={{
-                name: 'primaryMuscle',
-                id: 'primaryMuscle'
+                name: 'muscles',
+                id: 'muscles'
               }}
             >
               <option value="" />
@@ -85,14 +87,14 @@ function ExerciseFinder (props) {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="secondaryMuscle">Secondary Muscle</InputLabel>
+            <InputLabel htmlFor="muscles_secondary">Secondary Muscle</InputLabel>
             <Select
               native
-              value={parameters.age}
-              onChange={handleChange('secondaryMuscle')}
+              value={parameters.muscles_secondary}
+              onChange={handleChange('muscles_secondary')}
               inputProps={{
-                name: 'secondaryMuscle',
-                id: 'secondaryMuscle'
+                name: 'muscles_secondary',
+                id: 'muscles_secondary'
               }}
             >
               <option value="" />
@@ -103,7 +105,7 @@ function ExerciseFinder (props) {
             <InputLabel htmlFor="categories">Categories</InputLabel>
             <Select
               native
-              value={parameters.age}
+              value={parameters.category}
               onChange={handleChange('categories')}
               inputProps={{
                 name: 'categories',
@@ -118,7 +120,7 @@ function ExerciseFinder (props) {
             <InputLabel htmlFor="equipment">Equipment</InputLabel>
             <Select
               native
-              value={parameters.age}
+              value={parameters.equipment}
               onChange={handleChange('equipment')}
               inputProps={{
                 name: 'equipment',
@@ -145,4 +147,4 @@ function ExerciseFinder (props) {
   )
 }
 
-export default withSnackbar(withRouter(ExerciseFinder))
+export default withSnackbar(ExerciseFinder)

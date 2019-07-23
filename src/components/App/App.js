@@ -7,7 +7,9 @@ import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import MainScreen from './../MainScreen/MainScreen'
-import WorkoutTemplate from './../WorkoutTemplate/WorkoutTemplate'
+import CreateWorkoutTemplate from './../WorkoutTemplate/CreateWorkoutTemplate'
+
+// import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
 
 class App extends Component {
   constructor () {
@@ -39,7 +41,7 @@ class App extends Component {
             <ChangePassword open={true} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/create-workout' render={() => (
-            <WorkoutTemplate user={user} />
+            <CreateWorkoutTemplate user={user} />
           )} />
           {user
             ? <AuthenticatedRoute user={user} exact path='/' render={() => (
