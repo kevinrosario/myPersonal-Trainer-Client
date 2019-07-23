@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import SignInForm from './SignInForm'
 import SignUpForm from './SignUpForm'
 
+// Functional Component
 function UserAuth (props) {
   const [open, setOpen] = useState(props.open)
   const [signUpForm, setSignUpForm] = useState(false)

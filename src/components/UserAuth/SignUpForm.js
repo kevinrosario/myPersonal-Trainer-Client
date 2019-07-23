@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
 
+// Styling
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+// Functional Component
 const SignUpForm = props => {
   const classes = useStyles()
   const { email, password, passwordConfirmation } = props.credentials

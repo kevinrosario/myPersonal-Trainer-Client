@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
-import { getTemplates } from '../../api/workoutTemplates'
+import { getTemplate } from '../../api/workout'
 
+// Styling
 const useStyles = makeStyles(theme => ({
   div: {
     marginRight: theme.spacing(1),
@@ -27,19 +28,20 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+// Functional Component
 function MainScreen (props) {
   const classes = useStyles()
-  const [workoutTemplate, setWorkoutTemplate] = useState([])
+  const [workoutTemplate, setWorkoutTemplate] = useState({ name: '', exercises: [] })
 
   useEffect(() => {
-    getTemplates(props.user)
-      .then(response => setWorkoutTemplate(response.data.workoutTemplates))
-  }, [])
+    getTemplate(props.user, props.id)
+      .then(response => setWorkoutTemplate(response.data.workoutTemplate))
+  }, [workoutTemplate])
 
   return (
     <div>
       {workoutTemplate
-        ? <ul>{workoutTemplate}</ul>
+        ? ''
         : ''}
 
       <div className={classes.div}>

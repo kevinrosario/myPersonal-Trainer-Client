@@ -3,8 +3,9 @@ import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import { getTemplates } from '../../api/workoutTemplates'
+import { getTemplates } from '../../api/workout'
 
+// Styling
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: 0,
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+// Functional Component
 function MainScreen (props) {
   const classes = useStyles()
   const [workoutTemplates, setWorkoutTemplates] = useState([])

@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
 import FormTextField from '../Shared/FormTextField'
 
+// Styling
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+// Functional Component
 const SignInForm = props => {
   const classes = useStyles()
   const { email, password } = props.credentials

@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import FormTextField from '../Shared/FormTextField'
 
+// Functional Component
 function ChangePassword (props) {
   const [open, setOpen] = useState(props.open)
   const [credentials, setCredentials] = useState({ oldPassword: '', newPassword: '' })

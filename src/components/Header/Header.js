@@ -19,8 +19,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
+// Styling
 const drawerWidth = 240
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
@@ -53,6 +53,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+// Options
 const authenticatedOptions = (
   <Fragment>
     <ListItem button component={Link} to="/change-password" key={'change-password'}>
@@ -84,6 +85,7 @@ const alwaysOptions = (
   </Fragment>
 )
 
+// Functional Component
 const Header = (props) => {
   const classes = useStyles()
   const { container, user } = props
