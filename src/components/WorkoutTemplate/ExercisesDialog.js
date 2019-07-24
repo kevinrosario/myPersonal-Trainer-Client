@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 import { createExercise } from '../../api/workout'
@@ -12,7 +12,9 @@ import DialogContent from '@material-ui/core/DialogContent'
 
 // Functional Component
 function ExercisesDialog (props) {
-  const { open, history, user, selectedExercises, exerciseList, setExerciseList, setSeletectedExercises, dialogHandler } = props
+  const { open, history, user, selectedExercises,
+    exerciseList, setExerciseList, setSeletectedExercises,
+    dialogHandler } = props
 
   const handleSubmit = event => {
     createExercise(selectedExercises, user)
@@ -34,16 +36,31 @@ function ExercisesDialog (props) {
         </DialogContent>
         <DialogActions>
           {exerciseList.length !== 0
-            ? (<Button
-              fullWidth
-              onClick={handleSubmit}
-              variant="contained"
-              color="primary"
-            >
-            Add exercises
-            </Button>)
+            ? (
+              <Fragment>
+                <Button
+                  onClick={() => setExerciseList([])}
+                  variant="contained"
+                  color="secondary"
+                >
+                Back
+                </Button>
+                <Button
+                  onClick={handleSubmit}
+                  variant="contained"
+                  color="primary"
+                >
+                Add
+                </Button>
+              </Fragment>
+            )
             : ''}
-          <Button onClick={dialogHandler} color="primary">
+
+          <Button
+            onClick={dialogHandler}
+            color="secondary"
+            variant="contained"
+          >
             Cancel
           </Button>
         </DialogActions>

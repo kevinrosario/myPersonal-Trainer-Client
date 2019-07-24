@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Route } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
@@ -10,46 +10,57 @@ import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
 
 import MainScreen from './../MainScreen/MainScreen'
 
-class App extends Component {
-  constructor () {
-    super()
+function App () {
+  const [workoutTemplate, setWorkoutTemplate] = useState({})
+  const [workoutTemplates, setWorkoutTemplates] = useState([])
+  const [exercisesDialog, setExercisesDialog] = useState(false)
+  const [selectedExercises, setSeletectedExercises] = useState([])
+  const [exerciseList, setExerciseList] = useState([])
+  const [user, setUser] = useState(null)
 
-    this.state = {
-      user: null
-    }
+  const exercisesDialogHandler = event => {
+    setExercisesDialog(!exercisesDialog)
   }
 
-  setUser = user => this.setState({ user })
+  const clearUser = () => setUser(null)
 
-  clearUser = () => this.setState({ user: null })
-
-  render () {
-    const { user } = this.state
-
-    return (
-      <SnackbarProvider>
-        <Header user={user} >
-          <main className="container">
-            <Route path='/user-auth' render={() => (
-              <UserAuth open={true} setUser={this.setUser} />
-            )} />
-            <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-              <SignOut clearUser={this.clearUser} user={user} />
-            )} />
-            <AuthenticatedRoute user={user} path='/change-password' render={() => (
-              <ChangePassword open={true} user={user} />
-            )} />
-            <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
-              <EditWorkoutTemplate user={user} />
-            )} />
-            <AuthenticatedRoute user={user} exact path='/home' render={() => (
-              <MainScreen user={user} />
-            )} />
-          </main>
-        </Header>
-      </SnackbarProvider>
-    )
-  }
+  return (
+    <SnackbarProvider>
+      <Header user={user} >
+        <main className="container">
+          <Route path='/user-auth' render={() => (
+            <UserAuth open={true} setUser={setUser} />
+          )} />
+          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+            <SignOut clearUser={clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/change-password' render={() => (
+            <ChangePassword open={true} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
+            <EditWorkoutTemplate
+              user={user}
+              workoutTemplate={workoutTemplate}
+            />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/home' render={() => (
+            <MainScreen
+              user={user}
+              exercisesDialog={exercisesDialog}
+              exercisesDialogHandler={exercisesDialogHandler}
+              setWorkoutTemplate={setWorkoutTemplate}
+              workoutTemplates={workoutTemplates}
+              setWorkoutTemplates={setWorkoutTemplates}
+              selectedExercises={selectedExercises}
+              setSeletectedExercises={setSeletectedExercises}
+              exerciseList={exerciseList}
+              setExerciseList={setExerciseList}
+            />
+          )} />
+        </main>
+      </Header>
+    </SnackbarProvider>
+  )
 }
 // Debugging
 // <Route user={user} path='/' render={() => (

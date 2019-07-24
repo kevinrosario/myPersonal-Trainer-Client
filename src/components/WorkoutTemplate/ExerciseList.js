@@ -62,7 +62,7 @@ function ExerciseList (props) {
   }
 
   const exercisesArr = props.exerciseList.map(exercise => (
-    <ListItem key={exercise.name} role={undefined} dense button onClick={handleToggle(exercise)}>
+    <ListItem key={exercise.id} role={undefined} dense button onClick={handleToggle(exercise)}>
       <ListItemIcon>
         <Checkbox
           edge="start"

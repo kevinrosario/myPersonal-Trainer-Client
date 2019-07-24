@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { getTemplates } from '../../api/workout'
 import { makeStyles } from '@material-ui/core/styles'
@@ -21,18 +21,9 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function MainScreen (props) {
   const classes = useStyles()
-
-  const [workoutTemplate, setWorkoutTemplate] = useState({})
-  const [workoutTemplates, setWorkoutTemplates] = useState([])
-  const [exercisesDialog, setExercisesDialog] = useState(false)
-  const [selectedExercises, setSeletectedExercises] = useState([])
-  const [exerciseList, setExerciseList] = useState([])
-
-  console.log(workoutTemplate)
-
-  const exercisesDialogHandler = event => {
-    setExercisesDialog(!exercisesDialog)
-  }
+  const { workoutTemplates, user, exercisesDialog, exercisesDialogHandler,
+    setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
+    setExerciseList, setWorkoutTemplates } = props
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => (
     <li key={workoutTemplate._id}>
@@ -41,8 +32,11 @@ function MainScreen (props) {
   ))
 
   useEffect(() => {
-    getTemplates(props.user)
+    setSeletectedExercises([])
+    setExerciseList([])
+    getTemplates(user)
       .then(response => setWorkoutTemplates(response.data.workoutTemplates))
+      .catch(console.error)
   }, [])
 
   return (
@@ -50,7 +44,7 @@ function MainScreen (props) {
       {exercisesDialog
         ? <ExercisesDialog
           open={true}
-          user={props.user}
+          user={user}
           dialogHandler={exercisesDialogHandler}
           setWorkoutTemplate={setWorkoutTemplate}
           selectedExercises={selectedExercises}
