@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 import { createExercise } from '../../api/workout'
@@ -12,26 +12,21 @@ import DialogContent from '@material-ui/core/DialogContent'
 
 // Functional Component
 function ExercisesDialog (props) {
-  const [open, setOpen] = useState(props.open)
-  const [selectedExercises, setSeletectedExercises] = useState([])
-  const [exerciseList, setExerciseList] = useState([])
-
-  const handleClose = () => {
-    const { dialogHandler } = props
-    dialogHandler()
-    setOpen(false)
-  }
+  const { open, history, user, selectedExercises, exerciseList, setExerciseList, setSeletectedExercises, dialogHandler } = props
 
   const handleSubmit = event => {
-    createExercise(selectedExercises, props.user)
-      .then(response => props.setWorkoutTemplate(response.data.workoutTemplate))
-      .then(handleClose)
+    createExercise(selectedExercises, user)
+      .then(response => {
+        props.setWorkoutTemplate(response.data.workoutTemplate)
+        history.push(`/edit-workout/${response.data.workoutTemplate._id}`)
+      })
+      .then(dialogHandler)
       .catch(console.error)
   }
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="exercise-dialog">
+      <Dialog open={open} onClose={dialogHandler} aria-labelledby="exercise-dialog">
         <DialogContent>
           {exerciseList.length === 0
             ? <ExerciseFinder setExerciseList={setExerciseList} />
@@ -48,7 +43,7 @@ function ExercisesDialog (props) {
             Add exercises
             </Button>)
             : ''}
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={dialogHandler} color="primary">
             Cancel
           </Button>
         </DialogActions>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { getTemplates } from '../../api/workout'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import { getTemplates } from '../../api/workout'
+import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
 
 // Styling
 const useStyles = makeStyles(theme => ({
@@ -20,10 +21,21 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function MainScreen (props) {
   const classes = useStyles()
+
+  const [workoutTemplate, setWorkoutTemplate] = useState({})
   const [workoutTemplates, setWorkoutTemplates] = useState([])
+  const [exercisesDialog, setExercisesDialog] = useState(false)
+  const [selectedExercises, setSeletectedExercises] = useState([])
+  const [exerciseList, setExerciseList] = useState([])
+
+  console.log(workoutTemplate)
+
+  const exercisesDialogHandler = event => {
+    setExercisesDialog(!exercisesDialog)
+  }
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => (
-    <li key={workoutTemplate.id}>
+    <li key={workoutTemplate._id}>
       <h2>{workoutTemplate.name}</h2>
     </li>
   ))
@@ -35,6 +47,18 @@ function MainScreen (props) {
 
   return (
     <div>
+      {exercisesDialog
+        ? <ExercisesDialog
+          open={true}
+          user={props.user}
+          dialogHandler={exercisesDialogHandler}
+          setWorkoutTemplate={setWorkoutTemplate}
+          selectedExercises={selectedExercises}
+          setSeletectedExercises={setSeletectedExercises}
+          exerciseList={exerciseList}
+          setExerciseList={setExerciseList}
+        />
+        : ''}
       {workoutTemplatesArr !== 0
         ? (
           <div>
@@ -43,7 +67,7 @@ function MainScreen (props) {
           </div>)
         : ''}
 
-      <Fab color="primary" component={Link} to='/create-workout' aria-label="Add" className={classes.fab}>
+      <Fab color="primary" aria-label="Add" className={classes.fab} onClick={exercisesDialogHandler}>
         <AddIcon />
       </Fab>
     </div>

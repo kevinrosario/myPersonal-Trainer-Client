@@ -18,7 +18,6 @@ import Input from '@material-ui/icons/Input'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import MainScreen from './../MainScreen/MainScreen'
 
 // Styling
 const drawerWidth = 240
@@ -65,7 +64,7 @@ const authenticatedOptions = (
       <ListItemIcon><PowerSettingsNew /></ListItemIcon>
       <ListItemText primary={'Sign-Out'}/>
     </ListItem>
-    <ListItem button component={Link} to="/" key={'home'}>
+    <ListItem button component={Link} to="/home" key={'home'}>
       <ListItemIcon><Home /></ListItemIcon>
       <ListItemText primary={'Home'} />
     </ListItem>
@@ -154,7 +153,7 @@ const Header = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {user ? <MainScreen user={user} /> : ''}
+        {props.children}
       </main>
     </div>
   )

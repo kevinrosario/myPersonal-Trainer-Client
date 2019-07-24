@@ -24,7 +24,7 @@ function UserAuth (props) {
   const handleClose = () => {
     const { history } = props
     setOpen(false)
-    history.push('/')
+    history.push('/home')
   }
 
   const handleChange = event => {

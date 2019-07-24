@@ -6,9 +6,9 @@ import Header from '../Header/Header'
 import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-import CreateWorkoutTemplate from './../WorkoutTemplate/CreateWorkoutTemplate'
+import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
 
-// import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
+import MainScreen from './../MainScreen/MainScreen'
 
 class App extends Component {
   constructor () {
@@ -28,21 +28,25 @@ class App extends Component {
 
     return (
       <SnackbarProvider>
-        <Header user={user} />
-        <main className="container">
-          <Route path='/user-auth' render={() => (
-            <UserAuth open={true} setUser={this.setUser} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword open={true} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/create-workout' render={() => (
-            <CreateWorkoutTemplate user={user} />
-          )} />
-        </main>
+        <Header user={user} >
+          <main className="container">
+            <Route path='/user-auth' render={() => (
+              <UserAuth open={true} setUser={this.setUser} />
+            )} />
+            <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+              <SignOut clearUser={this.clearUser} user={user} />
+            )} />
+            <AuthenticatedRoute user={user} path='/change-password' render={() => (
+              <ChangePassword open={true} user={user} />
+            )} />
+            <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
+              <EditWorkoutTemplate user={user} />
+            )} />
+            <AuthenticatedRoute user={user} exact path='/home' render={() => (
+              <MainScreen user={user} />
+            )} />
+          </main>
+        </Header>
       </SnackbarProvider>
     )
   }
@@ -56,9 +60,5 @@ class App extends Component {
 // ? <AuthenticatedRoute user={user} exact path='/' render={() => (
 //   <MainScreen user={user} />
 //   )} /> : ''}
-
-// <AuthenticatedRoute user={user} exact path='/' render={() => (
-//   <MainScreen user={user} />
-// )} />
 
 export default App
