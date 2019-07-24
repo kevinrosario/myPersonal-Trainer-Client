@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
@@ -12,12 +12,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import Home from '@material-ui/icons/Home'
-import ExitToApp from '@material-ui/icons/ExitToApp'
 import SettingsApplications from '@material-ui/icons/SettingsApplications'
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
 import Input from '@material-ui/icons/Input'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import MainScreen from './../MainScreen/MainScreen'
 
 // Styling
 const drawerWidth = 240
@@ -61,8 +62,12 @@ const authenticatedOptions = (
       <ListItemText primary={'Change-Password'}/>
     </ListItem>
     <ListItem button component={Link} to="/sign-out" key={'sign-out'}>
-      <ListItemIcon><ExitToApp /></ListItemIcon>
+      <ListItemIcon><PowerSettingsNew /></ListItemIcon>
       <ListItemText primary={'Sign-Out'}/>
+    </ListItem>
+    <ListItem button component={Link} to="/" key={'home'}>
+      <ListItemIcon><Home /></ListItemIcon>
+      <ListItemText primary={'Home'} />
     </ListItem>
   </Fragment>
 )
@@ -72,15 +77,6 @@ const unauthenticatedOptions = (
     <ListItem button component={Link} to="/user-auth" key={'sign-in'}>
       <ListItemIcon><Input /></ListItemIcon>
       <ListItemText primary={'Sign-In'} />
-    </ListItem>
-  </Fragment>
-)
-
-const alwaysOptions = (
-  <Fragment>
-    <ListItem button component={Link} to="/" key={'home'}>
-      <ListItemIcon><Home /></ListItemIcon>
-      <ListItemText primary={'Home'} />
     </ListItem>
   </Fragment>
 )
@@ -102,7 +98,6 @@ const Header = (props) => {
       <Divider />
       <List>
         { user ? authenticatedOptions : unauthenticatedOptions }
-        {alwaysOptions}
       </List>
       <Divider />
     </div>
@@ -159,9 +154,10 @@ const Header = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {user ? <MainScreen user={user} /> : ''}
       </main>
     </div>
   )
 }
 
-export default Header
+export default withRouter(Header)

@@ -24,7 +24,7 @@ function MainScreen (props) {
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => (
     <li key={workoutTemplate.id}>
-      <Link to={'/'}>{workoutTemplate.name}</Link>
+      <h2>{workoutTemplate.name}</h2>
     </li>
   ))
 
@@ -35,8 +35,12 @@ function MainScreen (props) {
 
   return (
     <div>
-      {workoutTemplatesArr
-        ? <ul>{workoutTemplatesArr}</ul>
+      {workoutTemplatesArr !== 0
+        ? (
+          <div>
+            <h3>Workouts</h3>
+            <ul>{workoutTemplatesArr}</ul>
+          </div>)
         : ''}
 
       <Fab color="primary" component={Link} to='/create-workout' aria-label="Add" className={classes.fab}>

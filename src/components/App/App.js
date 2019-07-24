@@ -6,7 +6,6 @@ import Header from '../Header/Header'
 import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-import MainScreen from './../MainScreen/MainScreen'
 import CreateWorkoutTemplate from './../WorkoutTemplate/CreateWorkoutTemplate'
 
 // import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
@@ -43,10 +42,6 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-workout' render={() => (
             <CreateWorkoutTemplate user={user} />
           )} />
-          {user
-            ? <AuthenticatedRoute user={user} exact path='/' render={() => (
-              <MainScreen user={user} />
-            )} /> : ''}
         </main>
       </SnackbarProvider>
     )
@@ -55,6 +50,15 @@ class App extends Component {
 // Debugging
 // <Route user={user} path='/' render={() => (
 //   <ExercisesDialog open={true} user={user} />
+// )} />
+
+// {user
+// ? <AuthenticatedRoute user={user} exact path='/' render={() => (
+//   <MainScreen user={user} />
+//   )} /> : ''}
+
+// <AuthenticatedRoute user={user} exact path='/' render={() => (
+//   <MainScreen user={user} />
 // )} />
 
 export default App

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
+import { createExercise } from '../../api/workout'
 
 import ExerciseFinder from './ExerciseFinder'
 import ExerciseList from './ExerciseList'
@@ -22,7 +23,10 @@ function ExercisesDialog (props) {
   }
 
   const handleSubmit = event => {
-    console.log(selectedExercises)
+    createExercise(selectedExercises, props.user)
+      .then(response => props.setWorkoutTemplate(response.data.workoutTemplate))
+      .then(handleClose)
+      .catch(console.error)
   }
 
   return (

@@ -10,16 +10,12 @@ import ExercisesDialog from './ExercisesDialog'
 // Styling
 const useStyles = makeStyles(theme => ({
   div: {
-    marginRight: theme.spacing(1),
     margin: 0,
     top: 'auto',
-    right: 10,
+    right: 20,
     bottom: 20,
     left: 'auto',
     position: 'fixed'
-  },
-  add: {
-    marginRight: theme.spacing(1)
   },
   start: {
     marginRight: theme.spacing(1)
@@ -32,9 +28,9 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function MainScreen (props) {
   const classes = useStyles()
-  // const [workoutTemplate, setWorkoutTemplate] = useState({ name: '', exercises: [] })
+  const [workoutTemplate, setWorkoutTemplate] = useState({})
   const [exercisesDialog, setExercisesDialog] = useState(false)
-
+  console.log(workoutTemplate)
   // useEffect(() => {
   //   getTemplate(props.user, props.id)
   //     .then(response => setWorkoutTemplate(response.data.workoutTemplate))
@@ -47,7 +43,7 @@ function MainScreen (props) {
   return (
     <div>
       {exercisesDialog
-        ? <ExercisesDialog open={true} dialogHandler={exercisesDialogHandler} />
+        ? <ExercisesDialog open={true} user={props.user} dialogHandler={exercisesDialogHandler} setWorkoutTemplate={setWorkoutTemplate} />
         : ''}
 
       <div className={classes.div}>

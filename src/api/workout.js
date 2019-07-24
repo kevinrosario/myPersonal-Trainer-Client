@@ -34,3 +34,16 @@ export const getExercises = parameters => {
     url: thirdPartyAPI + urlParameters
   })
 }
+
+export const createExercise = (exercises, user) => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/exercises',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      exercises: exercises
+    }
+  })
+}
