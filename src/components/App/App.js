@@ -11,7 +11,7 @@ import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
 import MainScreen from './../MainScreen/MainScreen'
 
 function App () {
-  const [workoutTemplate, setWorkoutTemplate] = useState({})
+  const [workoutTemplate, setWorkoutTemplate] = useState(null)
   const [workoutTemplates, setWorkoutTemplates] = useState([])
   const [exercisesDialog, setExercisesDialog] = useState(false)
   const [selectedExercises, setSeletectedExercises] = useState([])
@@ -20,6 +20,8 @@ function App () {
 
   const exercisesDialogHandler = event => {
     setExercisesDialog(!exercisesDialog)
+    setExerciseList([])
+    setSeletectedExercises([])
   }
 
   const clearUser = () => setUser(null)
@@ -27,41 +29,43 @@ function App () {
   return (
     <SnackbarProvider>
       <Header user={user} >
-        <main className="container">
-          <Route path='/user-auth' render={() => (
-            <UserAuth open={true} setUser={setUser} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut clearUser={clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword open={true} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
-            <EditWorkoutTemplate
-              user={user}
-              workoutTemplate={workoutTemplate}
-            />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/home' render={() => (
-            <MainScreen
-              user={user}
-              exercisesDialog={exercisesDialog}
-              exercisesDialogHandler={exercisesDialogHandler}
-              setWorkoutTemplate={setWorkoutTemplate}
-              workoutTemplates={workoutTemplates}
-              setWorkoutTemplates={setWorkoutTemplates}
-              selectedExercises={selectedExercises}
-              setSeletectedExercises={setSeletectedExercises}
-              exerciseList={exerciseList}
-              setExerciseList={setExerciseList}
-            />
-          )} />
-        </main>
+        <Route path='/user-auth' render={() => (
+          <UserAuth open={true} setUser={setUser} />
+        )} />
+        <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+          <SignOut clearUser={clearUser} user={user} />
+        )} />
+        <AuthenticatedRoute user={user} path='/change-password' render={() => (
+          <ChangePassword open={true} user={user} />
+        )} />
+        <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
+          <EditWorkoutTemplate
+            user={user}
+            workoutTemplate={workoutTemplate}
+            setWorkoutTemplate={setWorkoutTemplate}
+          />
+        )} />
+        <AuthenticatedRoute user={user} exact path='/home' render={() => (
+          <MainScreen
+            user={user}
+            exercisesDialog={exercisesDialog}
+            exercisesDialogHandler={exercisesDialogHandler}
+            setWorkoutTemplate={setWorkoutTemplate}
+            workoutTemplates={workoutTemplates}
+            setWorkoutTemplates={setWorkoutTemplates}
+            selectedExercises={selectedExercises}
+            setSeletectedExercises={setSeletectedExercises}
+            exerciseList={exerciseList}
+            setExerciseList={setExerciseList}
+          />
+        )} />
       </Header>
     </SnackbarProvider>
   )
 }
+// <main className="container">
+//
+// </main>
 // Debugging
 // <Route user={user} path='/' render={() => (
 //   <ExercisesDialog open={true} user={user} />

@@ -1,10 +1,17 @@
 import { apiUrl, thirdPartyAPI } from '../apiConfig'
 import axios from 'axios'
 
-export const getTemplates = user => {
+export const getAllTemplates = user => {
   return axios({
     method: 'GET',
-    url: apiUrl + '/workout-templates',
+    url: apiUrl + '/workout-templates'
+  })
+}
+
+export const getUserTemplates = user => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/user-workout-templates',
     headers: {
       'Authorization': `Token token=${user.token}`
     }

@@ -1,46 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
-import { getTemplates } from '../../api/workout'
-import { makeStyles } from '@material-ui/core/styles'
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
 import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
-
-// Styling
-const useStyles = makeStyles(theme => ({
-  fab: {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed'
-  }
-}))
+import WorkoutList from './../WorkoutTemplate/WorkoutList'
 
 // Functional Component
 function MainScreen (props) {
-  const classes = useStyles()
-  const { workoutTemplates, user, exercisesDialog, exercisesDialogHandler,
+  const { user, workoutTemplates, setWorkoutTemplates, exercisesDialog, exercisesDialogHandler,
     setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
-    setExerciseList, setWorkoutTemplates } = props
-
-  const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => (
-    <li key={workoutTemplate._id}>
-      <h2>{workoutTemplate.name}</h2>
-    </li>
-  ))
-
-  useEffect(() => {
-    setSeletectedExercises([])
-    setExerciseList([])
-    getTemplates(user)
-      .then(response => setWorkoutTemplates(response.data.workoutTemplates))
-      .catch(console.error)
-  }, [])
+    setExerciseList } = props
 
   return (
-    <div>
+    <Fragment>
+      {/* Set exercise dialog */}
       {exercisesDialog
         ? <ExercisesDialog
           open={true}
@@ -53,19 +24,18 @@ function MainScreen (props) {
           setExerciseList={setExerciseList}
         />
         : ''}
-      {workoutTemplatesArr !== 0
-        ? (
-          <div>
-            <h3>Workouts</h3>
-            <ul>{workoutTemplatesArr}</ul>
-          </div>)
+      {/* Set workout list */}
+      {workoutTemplates !== 0
+        ? <WorkoutList
+          user={user}
+          workoutTemplates={workoutTemplates}
+          setWorkoutTemplates={setWorkoutTemplates}
+          exercisesDialogHandler={exercisesDialogHandler}
+        />
         : ''}
-
-      <Fab color="primary" aria-label="Add" className={classes.fab} onClick={exercisesDialogHandler}>
-        <AddIcon />
-      </Fab>
-    </div>
+    </Fragment>
   )
 }
+// {/**/}
 
 export default withRouter(MainScreen)

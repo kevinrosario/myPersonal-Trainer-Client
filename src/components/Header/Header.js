@@ -121,7 +121,7 @@ const Header = (props) => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer} aria-label="Mailbox folders">
+      <nav className={classes.drawer} aria-label="Main Actions">
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -153,7 +153,9 @@ const Header = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {props.children}
+        <div className="container">
+          {props.children}
+        </div>
       </main>
     </div>
   )
