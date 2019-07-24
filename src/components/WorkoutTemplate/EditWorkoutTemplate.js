@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import { getTemplate } from '../../api/workout'
+import { getTemplate, updateWorkout, destroyWorkout } from '../../api/workout'
 import { makeStyles } from '@material-ui/core/styles'
+import { withSnackbar } from 'notistack'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import SaveIcon from '@material-ui/icons/Save'
@@ -65,7 +66,10 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function EditWorkoutTemplate (props) {
   const classes = useStyles()
-  const { user, workoutTemplate, setWorkoutTemplate } = props
+  const { user, workoutTemplate, setWorkoutTemplate, enqueueSnackbar, history,
+    editExercisesDialogHandler, editExercisesDialog, exercise,
+    setExercise } = props
+
   useEffect(() => {
     getTemplate(user, props.match.params.id)
       .then(response => setWorkoutTemplate(response.data.workoutTemplate))
@@ -74,6 +78,23 @@ function EditWorkoutTemplate (props) {
 
   const handleChange = name => event => {
     setWorkoutTemplate({ ...workoutTemplate, [name]: event.target.value })
+  }
+
+  const handleUpdate = event => {
+    updateWorkout(workoutTemplate, user)
+      .then(() => {
+        enqueueSnackbar('Updated Successfully', { variant: 'success' })
+      })
+      .catch(console.error)
+  }
+
+  const handleDestroy = event => {
+    destroyWorkout(workoutTemplate, user)
+      .then(() => {
+        history.push('/home')
+        enqueueSnackbar('Deleted Successfully', { variant: 'success' })
+      })
+      .catch(console.error)
   }
 
   return (
@@ -96,8 +117,14 @@ function EditWorkoutTemplate (props) {
                 List of Exercises
                 </Typography>
                 <EditExerciseList
+                  user={user}
+                  exercise={exercise}
+                  setExercise={setExercise}
                   workoutTemplate={workoutTemplate}
+                  setWorkoutTemplate={setWorkoutTemplate}
                   handleChange={handleChange}
+                  editExercisesDialog={editExercisesDialog}
+                  editExercisesDialogHandler={editExercisesDialogHandler}
                 />
               </Fragment>
             )
@@ -108,10 +135,10 @@ function EditWorkoutTemplate (props) {
         <Fab aria-label="Start Exercise" className={classes.fab}>
           <FitnessCenterIcon />
         </Fab>
-        <Fab aria-label="Save Exercise" className={classes.fab} color="secondary">
+        <Fab aria-label="Save Exercise" className={classes.fab} color="secondary" onClick={handleUpdate}>
           <SaveIcon />
         </Fab>
-        <Fab aria-label="Delete Exercise" className={classes.fab} color="secondary">
+        <Fab aria-label="Delete Exercise" className={classes.fab} color="secondary" onClick={handleDestroy}>
           <DeleteIcon />
         </Fab>
         <Fab aria-label="Add Exercise" color="primary" >
@@ -122,4 +149,4 @@ function EditWorkoutTemplate (props) {
   )
 }
 
-export default withRouter(EditWorkoutTemplate)
+export default withSnackbar(withRouter(EditWorkoutTemplate))

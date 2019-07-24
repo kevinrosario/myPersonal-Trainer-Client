@@ -8,7 +8,7 @@ import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
 // import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
-
+import EditExerciseDialog from './EditExerciseDialog'
 // Styling
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme => ({
 // Functional Component
 function EditExerciseList (props) {
   const classes = useStyles()
-  const { workoutTemplate } = props
+  const { user, workoutTemplate, editExercisesDialogHandler, editExercisesDialog, exercise,
+    setExercise, setWorkoutTemplate } = props
 
   const exercisesArr = workoutTemplate.exercises.map(exercise => {
     return (
@@ -56,13 +57,16 @@ function EditExerciseList (props) {
             {exercise.name}
           </Typography>
           <ul>
-            <li>Sets: {exercise.sets}</li>
-            <li>Reps: {exercise.repetions}</li>
-            <li>Rest Time: {exercise.restTime}</li>
+            <li key={exercise._id + '-sets'}>Sets: {exercise.sets}</li>
+            <li key={exercise._id + '-reps'}>Reps: {exercise.repetions}</li>
+            <li key={exercise._id + '-restTime'}>Rest Time: {exercise.restTime}</li>
           </ul>
         </ListItemText>
         <ListItemSecondaryAction>
-          <Fab aria-label="Edit Exercise" size="small">
+          <Fab aria-label="Edit Exercise" size="small" onClick={() => {
+            editExercisesDialogHandler()
+            setExercise(exercise)
+          }}>
             <EditIcon />
           </Fab>
         </ListItemSecondaryAction>
@@ -73,42 +77,18 @@ function EditExerciseList (props) {
   return (
     <List className={classes.root}>
       {exercisesArr}
+      {editExercisesDialog
+        ? <EditExerciseDialog
+          user={user}
+          open={true}
+          exercise={exercise}
+          setExercise={setExercise}
+          setWorkoutTemplate={setWorkoutTemplate}
+          editExercisesDialogHandler={editExercisesDialogHandler}
+        />
+        : ''}
     </List>
   )
 }
-
-// <TextField
-//   id="standard-number"
-//   label="Repetions"
-//   value={exercise.repetions}
-//   onChange={handleChange('exercise')}
-//   type="number"
-//   className={classes.textField}
-//   InputLabelProps={{
-//     shrink: true
-//   }}
-// />
-// <TextField
-//   id="standard-number"
-//   label="Sets"
-//   value={exercise.sets}
-//   onChange={handleChange('sets')}
-//   type="number"
-//   className={classes.textField}
-//   InputLabelProps={{
-//     shrink: true
-//   }}
-// />
-// <TextField
-//   id="standard-number"
-//   label="Rest Time"
-//   value={exercise.restTime}
-//   onChange={handleChange('restTime')}
-//   type="number"
-//   className={classes.textField}
-//   InputLabelProps={{
-//     shrink: true
-//   }}
-// />
 
 export default EditExerciseList

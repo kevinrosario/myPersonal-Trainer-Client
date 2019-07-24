@@ -14,7 +14,9 @@ function App () {
   const [workoutTemplate, setWorkoutTemplate] = useState(null)
   const [workoutTemplates, setWorkoutTemplates] = useState([])
   const [exercisesDialog, setExercisesDialog] = useState(false)
+  const [editExercisesDialog, setEditExercisesDialog] = useState(false)
   const [selectedExercises, setSeletectedExercises] = useState([])
+  const [exercise, setExercise] = useState([])
   const [exerciseList, setExerciseList] = useState([])
   const [user, setUser] = useState(null)
 
@@ -22,6 +24,10 @@ function App () {
     setExercisesDialog(!exercisesDialog)
     setExerciseList([])
     setSeletectedExercises([])
+  }
+
+  const editExercisesDialogHandler = event => {
+    setEditExercisesDialog(!editExercisesDialog)
   }
 
   const clearUser = () => setUser(null)
@@ -41,8 +47,12 @@ function App () {
         <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
           <EditWorkoutTemplate
             user={user}
+            exercise={exercise}
+            setExercise={setExercise}
             workoutTemplate={workoutTemplate}
             setWorkoutTemplate={setWorkoutTemplate}
+            editExercisesDialog={editExercisesDialog}
+            editExercisesDialogHandler={editExercisesDialogHandler}
           />
         )} />
         <AuthenticatedRoute user={user} exact path='/home' render={() => (

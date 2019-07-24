@@ -28,6 +28,7 @@ export const getTemplate = (user, id) => {
   })
 }
 
+// Call to third party API to request exercises
 export const getExercises = parameters => {
   const parametersArr = Object.entries(parameters)
   let urlParameters = ''
@@ -39,6 +40,42 @@ export const getExercises = parameters => {
   return axios({
     method: 'GET',
     url: thirdPartyAPI + urlParameters
+  })
+}
+
+export const updateWorkout = (workoutTemplate, user) => {
+  return axios({
+    method: 'PATCH',
+    url: apiUrl + `/workout-templates/${workoutTemplate._id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      workoutTemplate
+    }
+  })
+}
+
+export const destroyWorkout = (workoutTemplate, user) => {
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + `/workout-templates/${workoutTemplate._id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}
+
+export const updateExercise = (exercise, user) => {
+  return axios({
+    method: 'PATCH',
+    url: apiUrl + `/exercises/${exercise._id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      exercise
+    }
   })
 }
 
