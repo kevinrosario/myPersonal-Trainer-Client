@@ -1,7 +1,6 @@
 import React, { useEffect, Fragment } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { getAllTemplates } from '../../api/workout'
-import { makeStyles } from '@material-ui/core/styles'
+import { getUserTemplates } from '../../api/workout'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
@@ -13,37 +12,16 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 
-// Styling
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  root: {
-    width: '100%'
-  },
-  add: {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed'
-  }
-}))
-
 // Functional Component
 function WorkoutList (props) {
-  const classes = useStyles()
-  const { user, workoutTemplates, setWorkoutTemplates, exercisesDialogHandler } = props
+  const { user, workoutTemplates, setWorkoutTemplates, exercisesDialogHandler, makeStyles } = props
+  const classes = makeStyles()
+
+  useEffect(() => {
+    getUserTemplates(user)
+      .then(response => setWorkoutTemplates(response.data.workoutTemplates))
+      .catch(console.error)
+  }, [])
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => {
     const labelId = `checkbox-list-secondary-label-${workoutTemplate.name}`
@@ -63,12 +41,6 @@ function WorkoutList (props) {
       </ListItem>
     )
   })
-
-  useEffect(() => {
-    getAllTemplates(user)
-      .then(response => setWorkoutTemplates(response.data.workoutTemplates))
-      .catch(console.error)
-  }, [])
 
   return (
     <Fragment>

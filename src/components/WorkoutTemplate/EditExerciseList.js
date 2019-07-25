@@ -6,48 +6,13 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
-// import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
 import EditExerciseDialog from './EditExerciseDialog'
-// Styling
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: '100%'
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
-  },
-  typography: {
-    padding: theme.spacing(2)
-  }
-}))
 
 // Functional Component
 function EditExerciseList (props) {
-  const classes = useStyles()
   const { user, workoutTemplate, editExercisesDialogHandler, editExercisesDialog, exercise,
-    setExercise, setWorkoutTemplate } = props
+    setExercise, setWorkoutTemplate, makeStyles } = props
+  const classes = makeStyles()
 
   const exercisesArr = workoutTemplate.exercises.map(exercise => {
     return (

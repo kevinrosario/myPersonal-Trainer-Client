@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { getTemplate, updateWorkout, destroyWorkout } from '../../api/workout'
-import { makeStyles } from '@material-ui/core/styles'
 import { withSnackbar } from 'notistack'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
@@ -15,62 +14,13 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: '100%'
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
-  },
-  typography: {
-    padding: theme.spacing(2)
-  },
-  add: {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed'
-  },
-  fab: {
-    marginRight: 5
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200
-  }
-}))
-
 // Functional Component
 function EditWorkoutTemplate (props) {
-  const classes = useStyles()
   const { user, workoutTemplate, setWorkoutTemplate, enqueueSnackbar, history,
     editExercisesDialogHandler, editExercisesDialog, exercise,
     setExercise, exercisesDialog, exercisesDialogHandler, selectedExercises, setSeletectedExercises,
-    exerciseList, setExerciseList } = props
+    exerciseList, setExerciseList, makeStyles } = props
+  const classes = makeStyles()
 
   useEffect(() => {
     getTemplate(user, props.match.params.id)
@@ -135,6 +85,7 @@ function EditWorkoutTemplate (props) {
                 </Typography>
                 <EditExerciseList
                   user={user}
+                  makeStyles={makeStyles}
                   exercise={exercise}
                   setExercise={setExercise}
                   workoutTemplate={workoutTemplate}

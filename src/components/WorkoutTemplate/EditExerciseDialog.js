@@ -84,16 +84,16 @@ function EditExerciseDialog (props) {
           <Button
             color="secondary"
             variant="contained"
-            onClick={handleSave}
+            onClick={editExercisesDialogHandler}
           >
-            Save
+            Cancel
           </Button>
           <Button
             color="secondary"
             variant="contained"
-            onClick={editExercisesDialogHandler}
+            onClick={handleSave}
           >
-            Cancel
+            Save
           </Button>
         </DialogActions>
       </Dialog>

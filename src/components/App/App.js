@@ -7,7 +7,7 @@ import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
-
+import makeStyles from './MaterialUIStyles.js'
 import MainScreen from './../MainScreen/MainScreen'
 
 function App () {
@@ -30,16 +30,24 @@ function App () {
     setEditExercisesDialog(!editExercisesDialog)
   }
 
-  const clearUser = () => setUser(null)
+  const clearUser = () => {
+    setWorkoutTemplate(null)
+    setWorkoutTemplates([])
+    setExerciseList([])
+    setUser(null)
+  }
 
   return (
-    <SnackbarProvider>
+    <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
       <Header user={user} >
         <Route path='/user-auth' render={() => (
           <UserAuth open={true} setUser={setUser} />
         )} />
         <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-          <SignOut clearUser={clearUser} user={user} />
+          <SignOut
+            clearUser={clearUser}
+            user={user}
+          />
         )} />
         <AuthenticatedRoute user={user} path='/change-password' render={() => (
           <ChangePassword open={true} user={user} />
@@ -47,6 +55,7 @@ function App () {
         <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
           <EditWorkoutTemplate
             user={user}
+            makeStyles={makeStyles}
             exercisesDialog={exercisesDialog}
             exercisesDialogHandler={exercisesDialogHandler}
             exercise={exercise}
@@ -64,6 +73,7 @@ function App () {
         <AuthenticatedRoute user={user} exact path='/home' render={() => (
           <MainScreen
             user={user}
+            makeStyles={makeStyles}
             exercisesDialog={exercisesDialog}
             exercisesDialogHandler={exercisesDialogHandler}
             workoutTemplate={workoutTemplate}

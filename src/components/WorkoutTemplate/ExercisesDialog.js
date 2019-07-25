@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 function ExercisesDialog (props) {
   const { open, history, user, selectedExercises,
     exerciseList, setExerciseList, setSeletectedExercises,
-    dialogHandler, workoutTemplate, setWorkoutTemplate } = props
+    dialogHandler, workoutTemplate, setWorkoutTemplate, makeStyles } = props
 
   const handleSubmit = event => {
     if (workoutTemplate) {
@@ -49,8 +49,16 @@ function ExercisesDialog (props) {
       <Dialog open={open} onClose={dialogHandler} aria-labelledby="exercise-dialog">
         <DialogContent>
           {exerciseList.length === 0
-            ? <ExerciseFinder setExerciseList={setExerciseList} />
-            : <ExerciseList selectedExercises={selectedExercises} setSeletectedExercises={setSeletectedExercises} exerciseList={exerciseList} /> }
+            ? <ExerciseFinder
+              setExerciseList={setExerciseList}
+              makeStyles={makeStyles}
+            />
+            : <ExerciseList
+              selectedExercises={selectedExercises}
+              setSeletectedExercises={setSeletectedExercises}
+              exerciseList={exerciseList}
+              makeStyles={makeStyles}
+            /> }
         </DialogContent>
         <DialogActions>
           {exerciseList.length !== 0

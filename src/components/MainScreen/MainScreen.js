@@ -7,7 +7,7 @@ import WorkoutList from './../WorkoutTemplate/WorkoutList'
 function MainScreen (props) {
   const { user, workoutTemplates, setWorkoutTemplates, exercisesDialog, exercisesDialogHandler,
     workoutTemplate, setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
-    setExerciseList } = props
+    setExerciseList, makeStyles } = props
 
   setWorkoutTemplate(null)
 
@@ -18,6 +18,7 @@ function MainScreen (props) {
         ? <ExercisesDialog
           open={true}
           user={user}
+          makeStyles={makeStyles}
           dialogHandler={exercisesDialogHandler}
           workoutTemplate={workoutTemplate}
           setWorkoutTemplate={setWorkoutTemplate}
@@ -31,6 +32,7 @@ function MainScreen (props) {
       {workoutTemplates !== 0
         ? <WorkoutList
           user={user}
+          makeStyles={makeStyles}
           workoutTemplates={workoutTemplates}
           setWorkoutTemplates={setWorkoutTemplates}
           exercisesDialogHandler={exercisesDialogHandler}
