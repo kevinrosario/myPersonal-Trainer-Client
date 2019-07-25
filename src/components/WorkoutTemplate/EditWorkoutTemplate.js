@@ -57,6 +57,7 @@ function EditWorkoutTemplate (props) {
         ? <ExercisesDialog
           open={true}
           user={user}
+          makeStyles={makeStyles}
           dialogHandler={exercisesDialogHandler}
           workoutTemplate={workoutTemplate}
           setWorkoutTemplate={setWorkoutTemplate}

@@ -93,6 +93,20 @@ export const createMultipleExercises = (exercises, user) => {
   })
 }
 
+export const destroyExercise = (exercise, user, workoutTemplateID) => {
+  console.log(exercise, user, workoutTemplateID)
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + `/exercises/${exercise._id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      workoutTemplateID
+    }
+  })
+}
+
 export const createWorkoutTemplate = (exercises, user) => {
   return axios({
     method: 'POST',

@@ -25,12 +25,16 @@ function WorkoutList (props) {
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => {
     const labelId = `checkbox-list-secondary-label-${workoutTemplate.name}`
+    const exercisesList = workoutTemplate.exercises.map(exercise => <li key={exercise._id}>{exercise.name}</li>)
     return (
       <ListItem key={workoutTemplate._id} component={Link} to={`/edit-workout/${workoutTemplate._id}`} button alignItems='center' divider={true}>
         <ListItemText id={labelId}>
           <Typography variant="h6">
             {workoutTemplate.name}
           </Typography>
+          <ul>
+            {exercisesList}
+          </ul>
         </ListItemText>
         <ListItemSecondaryAction>
           <Fab aria-label="start" size="small" variant="extended" className={classes.edit}>

@@ -6,13 +6,25 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import EditExerciseDialog from './EditExerciseDialog'
+import { destroyExercise } from '../../api/workout'
+import { withSnackbar } from 'notistack'
 
 // Functional Component
 function EditExerciseList (props) {
   const { user, workoutTemplate, editExercisesDialogHandler, editExercisesDialog, exercise,
-    setExercise, setWorkoutTemplate, makeStyles } = props
+    setExercise, setWorkoutTemplate, makeStyles, enqueueSnackbar } = props
   const classes = makeStyles()
+
+  const handleDestroy = (exercise, user, workoutTemplateID) => {
+    destroyExercise(exercise, user, workoutTemplateID)
+      .then((response) => {
+        setWorkoutTemplate(response.data.workoutTemplate)
+        enqueueSnackbar('Deleted Successfully', { variant: 'success' })
+      })
+      .catch(console.error)
+  }
 
   const exercisesArr = workoutTemplate.exercises.map(exercise => {
     return (
@@ -28,11 +40,17 @@ function EditExerciseList (props) {
           </ul>
         </ListItemText>
         <ListItemSecondaryAction>
-          <Fab aria-label="Edit Exercise" size="small" onClick={() => {
+          <Fab className={classes.fab} aria-label="Edit Exercise" size="small" onClick={() => {
             editExercisesDialogHandler()
             setExercise(exercise)
           }}>
             <EditIcon />
+          </Fab>
+          <Fab className={classes.fab} aria-label="Delete Exercise" size="small"
+            onClick={() => {
+              handleDestroy(exercise, user, workoutTemplate._id)
+            }}>
+            <DeleteIcon />
           </Fab>
         </ListItemSecondaryAction>
       </ListItem>
@@ -57,4 +75,4 @@ function EditExerciseList (props) {
   )
 }
 
-export default EditExerciseList
+export default withSnackbar(EditExerciseList)
