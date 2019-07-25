@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 import { updateExercise } from '../../api/workout'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -9,10 +10,27 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 
+const useStyles = makeStyles(theme => ({
+  exerciseForms: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  dialogActions: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+}))
 // Functional Component
 function EditExerciseDialog (props) {
   const { editExercisesDialogHandler, exercise, setExercise, user,
     workoutTemplate, setWorkoutTemplate } = props
+  const classes = useStyles()
 
   // const { open, history, user, selectedExercises,
   //   exerciseList, setExerciseList, setSeletectedExercises,
@@ -35,7 +53,7 @@ function EditExerciseDialog (props) {
     <Fragment>
       <Dialog open aria-labelledby="exercise-dialog">
         <DialogContent>
-          <div>
+          <div className={classes.exerciseForms}>
             <TextField
               id="sets"
               label="Sets"
@@ -62,7 +80,7 @@ function EditExerciseDialog (props) {
             />
           </div>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className={classes.dialogActions}>
           <Button
             color="secondary"
             variant="contained"

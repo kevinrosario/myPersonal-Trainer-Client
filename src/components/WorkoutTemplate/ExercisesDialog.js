@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
-import { createWorkoutTemplate } from '../../api/workout'
+import { createWorkoutTemplate, createMultipleExercises, updateWorkout } from '../../api/workout'
 
 import ExerciseFinder from './ExerciseFinder'
 import ExerciseList from './ExerciseList'
@@ -14,16 +14,34 @@ import DialogContent from '@material-ui/core/DialogContent'
 function ExercisesDialog (props) {
   const { open, history, user, selectedExercises,
     exerciseList, setExerciseList, setSeletectedExercises,
-    dialogHandler } = props
+    dialogHandler, workoutTemplate, setWorkoutTemplate } = props
 
   const handleSubmit = event => {
-    createWorkoutTemplate(selectedExercises, user)
-      .then(response => {
-        props.setWorkoutTemplate(response.data.workoutTemplate)
-        history.push(`/edit-workout/${response.data.workoutTemplate._id}`)
-      })
-      .then(dialogHandler)
-      .catch(console.error)
+    if (workoutTemplate) {
+      createMultipleExercises(selectedExercises, user)
+        .then(response => {
+          // add response exercises to workoutTemplate
+          workoutTemplate.exercises.push(...response.data.exercises)
+          setWorkoutTemplate({ ...workoutTemplate, exercises: workoutTemplate.exercises })
+
+          updateWorkout(workoutTemplate, user)
+            .then(response => {
+              console.log(response)
+              setWorkoutTemplate(response.data.workoutTemplate)
+            })
+            .then(dialogHandler)
+            .catch(console.error)
+        })
+        .catch(console.error)
+    } else {
+      createWorkoutTemplate(selectedExercises, user)
+        .then(response => {
+          props.setWorkoutTemplate(response.data.workoutTemplate)
+          history.push(`/edit-workout/${response.data.workoutTemplate._id}`)
+        })
+        .then(dialogHandler)
+        .catch(console.error)
+    }
   }
 
   return (

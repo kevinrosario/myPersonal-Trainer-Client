@@ -6,8 +6,10 @@ import WorkoutList from './../WorkoutTemplate/WorkoutList'
 // Functional Component
 function MainScreen (props) {
   const { user, workoutTemplates, setWorkoutTemplates, exercisesDialog, exercisesDialogHandler,
-    setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
+    workoutTemplate, setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
     setExerciseList } = props
+
+  setWorkoutTemplate(null)
 
   return (
     <Fragment>
@@ -17,6 +19,7 @@ function MainScreen (props) {
           open={true}
           user={user}
           dialogHandler={exercisesDialogHandler}
+          workoutTemplate={workoutTemplate}
           setWorkoutTemplate={setWorkoutTemplate}
           selectedExercises={selectedExercises}
           setSeletectedExercises={setSeletectedExercises}

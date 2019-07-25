@@ -13,6 +13,7 @@ import EditExerciseList from './EditExerciseList'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
+import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -68,7 +69,8 @@ function EditWorkoutTemplate (props) {
   const classes = useStyles()
   const { user, workoutTemplate, setWorkoutTemplate, enqueueSnackbar, history,
     editExercisesDialogHandler, editExercisesDialog, exercise,
-    setExercise } = props
+    setExercise, exercisesDialog, exercisesDialogHandler, selectedExercises, setSeletectedExercises,
+    exerciseList, setExerciseList } = props
 
   useEffect(() => {
     getTemplate(user, props.match.params.id)
@@ -101,6 +103,19 @@ function EditWorkoutTemplate (props) {
 
   return (
     <Fragment>
+      {exercisesDialog
+        ? <ExercisesDialog
+          open={true}
+          user={user}
+          dialogHandler={exercisesDialogHandler}
+          workoutTemplate={workoutTemplate}
+          setWorkoutTemplate={setWorkoutTemplate}
+          selectedExercises={selectedExercises}
+          setSeletectedExercises={setSeletectedExercises}
+          exerciseList={exerciseList}
+          setExerciseList={setExerciseList}
+        />
+        : ''}
       <Container component="main" maxWidth="lg">
         <CssBaseline />
         <div className={classes.paper}>
@@ -143,7 +158,7 @@ function EditWorkoutTemplate (props) {
         <Fab aria-label="Delete Exercise" className={classes.fab} color="secondary" onClick={handleDestroy}>
           <DeleteIcon />
         </Fab>
-        <Fab aria-label="Add Exercise" color="primary" >
+        <Fab aria-label="Add Exercise" color="primary" onClick={exercisesDialogHandler}>
           <AddIcon />
         </Fab>
       </div>

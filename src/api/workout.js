@@ -80,6 +80,19 @@ export const updateExercise = (exercise, user, workoutTemplateID) => {
   })
 }
 
+export const createMultipleExercises = (exercises, user) => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/multiple-exercises',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      exercises
+    }
+  })
+}
+
 export const createWorkoutTemplate = (exercises, user) => {
   return axios({
     method: 'POST',

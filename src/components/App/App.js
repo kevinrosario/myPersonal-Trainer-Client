@@ -47,12 +47,18 @@ function App () {
         <AuthenticatedRoute user={user} exact path='/edit-workout/:id' render={() => (
           <EditWorkoutTemplate
             user={user}
+            exercisesDialog={exercisesDialog}
+            exercisesDialogHandler={exercisesDialogHandler}
             exercise={exercise}
             setExercise={setExercise}
             workoutTemplate={workoutTemplate}
             setWorkoutTemplate={setWorkoutTemplate}
             editExercisesDialog={editExercisesDialog}
             editExercisesDialogHandler={editExercisesDialogHandler}
+            selectedExercises={selectedExercises}
+            setSeletectedExercises={setSeletectedExercises}
+            exerciseList={exerciseList}
+            setExerciseList={setExerciseList}
           />
         )} />
         <AuthenticatedRoute user={user} exact path='/home' render={() => (
@@ -60,6 +66,7 @@ function App () {
             user={user}
             exercisesDialog={exercisesDialog}
             exercisesDialogHandler={exercisesDialogHandler}
+            workoutTemplate={workoutTemplate}
             setWorkoutTemplate={setWorkoutTemplate}
             workoutTemplates={workoutTemplates}
             setWorkoutTemplates={setWorkoutTemplates}
@@ -73,17 +80,5 @@ function App () {
     </SnackbarProvider>
   )
 }
-// <main className="container">
-//
-// </main>
-// Debugging
-// <Route user={user} path='/' render={() => (
-//   <ExercisesDialog open={true} user={user} />
-// )} />
-
-// {user
-// ? <AuthenticatedRoute user={user} exact path='/' render={() => (
-//   <MainScreen user={user} />
-//   )} /> : ''}
 
 export default App
