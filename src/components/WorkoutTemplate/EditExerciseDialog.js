@@ -11,16 +11,17 @@ import TextField from '@material-ui/core/TextField'
 
 // Functional Component
 function EditExerciseDialog (props) {
-  const { editExercisesDialogHandler, exercise, setExercise, user } = props
+  const { editExercisesDialogHandler, exercise, setExercise, user,
+    workoutTemplate, setWorkoutTemplate } = props
 
   // const { open, history, user, selectedExercises,
   //   exerciseList, setExerciseList, setSeletectedExercises,
   //   dialogHandler } = props
 
   const handleSave = event => {
-    updateExercise(exercise, user)
+    updateExercise(exercise, user, workoutTemplate._id)
       .then(response => {
-        setExercise(exercise)
+        setWorkoutTemplate(response.data.workoutTemplate)
       })
       .then(editExercisesDialogHandler)
       .catch(console.error)
@@ -39,6 +40,7 @@ function EditExerciseDialog (props) {
               id="sets"
               label="Sets"
               value={exercise.sets}
+              type="number"
               onChange={handleChange('sets')}
               margin="normal"
             />
@@ -46,6 +48,7 @@ function EditExerciseDialog (props) {
               id="repetions"
               label="Repetions"
               value={exercise.repetions}
+              type="number"
               onChange={handleChange('repetions')}
               margin="normal"
             />
@@ -53,6 +56,7 @@ function EditExerciseDialog (props) {
               id="restTime"
               label="Rest Time"
               value={exercise.restTime}
+              type="number"
               onChange={handleChange('restTime')}
               margin="normal"
             />

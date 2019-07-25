@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
-import { createExercise } from '../../api/workout'
+import { createWorkoutTemplate } from '../../api/workout'
 
 import ExerciseFinder from './ExerciseFinder'
 import ExerciseList from './ExerciseList'
@@ -17,7 +17,7 @@ function ExercisesDialog (props) {
     dialogHandler } = props
 
   const handleSubmit = event => {
-    createExercise(selectedExercises, user)
+    createWorkoutTemplate(selectedExercises, user)
       .then(response => {
         props.setWorkoutTemplate(response.data.workoutTemplate)
         history.push(`/edit-workout/${response.data.workoutTemplate._id}`)

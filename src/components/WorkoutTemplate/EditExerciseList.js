@@ -81,6 +81,7 @@ function EditExerciseList (props) {
         ? <EditExerciseDialog
           user={user}
           open={true}
+          workoutTemplate={workoutTemplate}
           exercise={exercise}
           setExercise={setExercise}
           setWorkoutTemplate={setWorkoutTemplate}

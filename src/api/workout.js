@@ -66,7 +66,7 @@ export const destroyWorkout = (workoutTemplate, user) => {
   })
 }
 
-export const updateExercise = (exercise, user) => {
+export const updateExercise = (exercise, user, workoutTemplateID) => {
   return axios({
     method: 'PATCH',
     url: apiUrl + `/exercises/${exercise._id}`,
@@ -74,15 +74,16 @@ export const updateExercise = (exercise, user) => {
       'Authorization': `Token token=${user.token}`
     },
     data: {
-      exercise
+      exercise,
+      id: workoutTemplateID
     }
   })
 }
 
-export const createExercise = (exercises, user) => {
+export const createWorkoutTemplate = (exercises, user) => {
   return axios({
     method: 'POST',
-    url: apiUrl + '/exercises',
+    url: apiUrl + '/workout-templates',
     headers: {
       'Authorization': `Token token=${user.token}`
     },

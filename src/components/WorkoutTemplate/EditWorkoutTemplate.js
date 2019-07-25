@@ -82,7 +82,8 @@ function EditWorkoutTemplate (props) {
 
   const handleUpdate = event => {
     updateWorkout(workoutTemplate, user)
-      .then(() => {
+      .then((response) => {
+        setWorkoutTemplate(response.data.workoutTemplate)
         enqueueSnackbar('Updated Successfully', { variant: 'success' })
       })
       .catch(console.error)
@@ -92,6 +93,7 @@ function EditWorkoutTemplate (props) {
     destroyWorkout(workoutTemplate, user)
       .then(() => {
         history.push('/home')
+        setWorkoutTemplate(null)
         enqueueSnackbar('Deleted Successfully', { variant: 'success' })
       })
       .catch(console.error)

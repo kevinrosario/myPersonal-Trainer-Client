@@ -48,6 +48,7 @@ function ExerciseFinder (props) {
     category: '',
     equipment: ''
   })
+  const { enqueueSnackbar } = props
 
   const handleChange = name => event => {
     setParameters({
@@ -59,7 +60,13 @@ function ExerciseFinder (props) {
   const handleSubmit = event => {
     event.preventDefault()
     getExercises(parameters)
-      .then(response => props.setExerciseList(response.data.results))
+      .then(response => {
+        if (response.data.count === 0) {
+          enqueueSnackbar('No exercises found', { variant: 'error' })
+        } else {
+          props.setExerciseList(response.data.results)
+        }
+      })
       .catch(console.error)
   }
 
@@ -106,10 +113,10 @@ function ExerciseFinder (props) {
             <Select
               native
               value={parameters.category}
-              onChange={handleChange('categories')}
+              onChange={handleChange('category')}
               inputProps={{
-                name: 'categories',
-                id: 'categories'
+                name: 'category',
+                id: 'category'
               }}
             >
               <option value="" />
