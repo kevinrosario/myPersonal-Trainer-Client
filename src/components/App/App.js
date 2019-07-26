@@ -7,8 +7,9 @@ import UserAuth from '../UserAuth/UserAuth'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
-import makeStyles from './MaterialUIStyles.js'
 import MainScreen from './../MainScreen/MainScreen'
+import Timer from './../Timer/Timer'
+import makeStyles from './MaterialUIStyles.js'
 
 function App () {
   const [workoutTemplate, setWorkoutTemplate] = useState(null)
@@ -19,6 +20,11 @@ function App () {
   const [exercise, setExercise] = useState([])
   const [exerciseList, setExerciseList] = useState([])
   const [user, setUser] = useState(null)
+  const [restTime, setRestTime] = useState(3)
+  const [timerInterval, setTimerInterval] = useState(null)
+  const [finishedExercises, setFinishedExercises] = useState([])
+  const [unfinishedExercises, setUnfinishedExercises] = useState([])
+  const [currentExercise, setCurrentExercise] = useState(null)
 
   const exercisesDialogHandler = event => {
     setExercisesDialog(!exercisesDialog)
@@ -34,6 +40,8 @@ function App () {
     setWorkoutTemplate(null)
     setWorkoutTemplates([])
     setExerciseList([])
+    setFinishedExercises([])
+    setUnfinishedExercises([])
     setUser(null)
   }
 
@@ -84,6 +92,23 @@ function App () {
             setSeletectedExercises={setSeletectedExercises}
             exerciseList={exerciseList}
             setExerciseList={setExerciseList}
+            setUnfinishedExercises={setUnfinishedExercises}
+          />
+        )} />
+        <AuthenticatedRoute user={user} exact path='/workout-timer' render={() => (
+          <Timer
+            makeStyles={makeStyles}
+            workoutTemplate={workoutTemplate}
+            restTime={restTime}
+            setRestTime={setRestTime}
+            timerInterval={timerInterval}
+            setTimerInterval={setTimerInterval}
+            finishedExercises={finishedExercises}
+            setFinishedExercises={setFinishedExercises}
+            unfinishedExercises={unfinishedExercises}
+            setUnfinishedExercises={setUnfinishedExercises}
+            currentExercise={currentExercise}
+            setCurrentExercise={setCurrentExercise}
           />
         )} />
       </Header>

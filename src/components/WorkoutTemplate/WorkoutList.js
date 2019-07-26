@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography'
 
 // Functional Component
 function WorkoutList (props) {
-  const { user, workoutTemplates, setWorkoutTemplates, exercisesDialogHandler, makeStyles } = props
+  const { user, setWorkoutTemplate, workoutTemplates, setWorkoutTemplates,
+    exercisesDialogHandler, setUnfinishedExercises, makeStyles } = props
   const classes = makeStyles()
 
   useEffect(() => {
@@ -37,7 +38,11 @@ function WorkoutList (props) {
           </ul>
         </ListItemText>
         <ListItemSecondaryAction>
-          <Fab aria-label="start" size="small" variant="extended" className={classes.edit}>
+          <Fab aria-label="start" component={Link} to={'/workout-timer'} onClick={() => {
+            setWorkoutTemplate(workoutTemplate)
+            setUnfinishedExercises([...workoutTemplate.exercises])
+          }}
+          size="small" variant="extended" className={classes.edit}>
             <FitnessCenter />
             Start
           </Fab>

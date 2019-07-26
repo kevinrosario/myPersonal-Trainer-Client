@@ -7,7 +7,7 @@ import WorkoutList from './../WorkoutTemplate/WorkoutList'
 function MainScreen (props) {
   const { user, workoutTemplates, setWorkoutTemplates, exercisesDialog, exercisesDialogHandler,
     workoutTemplate, setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
-    setExerciseList, makeStyles } = props
+    setExerciseList, setUnfinishedExercises, makeStyles } = props
 
   setWorkoutTemplate(null)
 
@@ -33,9 +33,12 @@ function MainScreen (props) {
         ? <WorkoutList
           user={user}
           makeStyles={makeStyles}
+          workoutTemplate={workoutTemplate}
+          setWorkoutTemplate={setWorkoutTemplate}
           workoutTemplates={workoutTemplates}
           setWorkoutTemplates={setWorkoutTemplates}
           exercisesDialogHandler={exercisesDialogHandler}
+          setUnfinishedExercises={setUnfinishedExercises}
         />
         : ''}
     </Fragment>

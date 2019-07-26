@@ -26,7 +26,6 @@ function ExercisesDialog (props) {
 
           updateWorkout(workoutTemplate, user)
             .then(response => {
-              console.log(response)
               setWorkoutTemplate(response.data.workoutTemplate)
             })
             .then(dialogHandler)
