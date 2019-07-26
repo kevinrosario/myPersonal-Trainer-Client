@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 
 import { signOut } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+import messages from '../Messages/messages'
 
 class SignOut extends Component {
   componentDidMount () {

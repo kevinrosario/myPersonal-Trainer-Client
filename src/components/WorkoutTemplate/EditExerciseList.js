@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import EditExerciseDialog from './EditExerciseDialog'
 import { destroyExercise } from '../../api/workout'
 import { withSnackbar } from 'notistack'
+import messages from '../Messages/messages'
 
 // Functional Component
 function EditExerciseList (props) {
@@ -21,9 +22,12 @@ function EditExerciseList (props) {
     destroyExercise(exercise, user, workoutTemplateID)
       .then((response) => {
         setWorkoutTemplate(response.data.workoutTemplate)
-        enqueueSnackbar('Deleted Successfully', { variant: 'success' })
+        enqueueSnackbar(messages.deletedSuccessfully, { variant: 'error' })
       })
-      .catch(console.error)
+      .catch(error => {
+        console.error(error)
+        enqueueSnackbar(messages.somethingFailed, { variant: 'error' })
+      })
   }
 
   const exercisesArr = workoutTemplate.exercises.map(exercise => {
@@ -36,7 +40,7 @@ function EditExerciseList (props) {
           <ul>
             <li key={exercise._id + '-sets'}>Sets: {exercise.sets}</li>
             <li key={exercise._id + '-reps'}>Reps: {exercise.repetions}</li>
-            <li key={exercise._id + '-restTime'}>Rest Time: {exercise.restTime}</li>
+            <li key={exercise._id + '-restTime'}>Rest Time: {exercise.restTime} seconds</li>
           </ul>
         </ListItemText>
         <ListItemSecondaryAction>
@@ -64,6 +68,7 @@ function EditExerciseList (props) {
         ? <EditExerciseDialog
           user={user}
           open={true}
+          makeStyles={makeStyles}
           workoutTemplate={workoutTemplate}
           exercise={exercise}
           setExercise={setExercise}

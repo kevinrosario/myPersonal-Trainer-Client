@@ -7,40 +7,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { makeStyles } from '@material-ui/core/styles'
 import FormTextField from '../Shared/FormTextField'
-
-// Styling
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
 
 // Functional Component
 const SignInForm = props => {
-  const classes = useStyles()
   const { email, password } = props.credentials
-  const { handleChange, handleSubmit, handleForms } = props
+  const { handleChange, handleSubmit, handleForms, makeStyles } = props
+  const classes = makeStyles()
 
   return (
     <Container component="main" maxWidth="xs">

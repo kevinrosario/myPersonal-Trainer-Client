@@ -1,7 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
-import { getTemplate, updateWorkout, destroyWorkout } from '../../api/workout'
-import { withSnackbar } from 'notistack'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import SaveIcon from '@material-ui/icons/Save'
@@ -13,6 +10,10 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import ExercisesDialog from './../WorkoutTemplate/ExercisesDialog'
+import { withRouter } from 'react-router-dom'
+import { getTemplate, updateWorkout, destroyWorkout } from '../../api/workout'
+import { withSnackbar } from 'notistack'
+import messages from '../Messages/messages'
 
 // Functional Component
 function EditWorkoutTemplate (props) {
@@ -36,7 +37,7 @@ function EditWorkoutTemplate (props) {
     updateWorkout(workoutTemplate, user)
       .then((response) => {
         setWorkoutTemplate(response.data.workoutTemplate)
-        enqueueSnackbar('Updated Successfully', { variant: 'success' })
+        enqueueSnackbar(messages.updatedSuccessfully, { variant: 'success' })
       })
       .catch(console.error)
   }
@@ -46,7 +47,7 @@ function EditWorkoutTemplate (props) {
       .then(() => {
         history.push('/home')
         setWorkoutTemplate(null)
-        enqueueSnackbar('Deleted Successfully', { variant: 'success' })
+        enqueueSnackbar(messages.deletedSuccessfully, { variant: 'error' })
       })
       .catch(console.error)
   }

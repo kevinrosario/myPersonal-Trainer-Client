@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
@@ -10,45 +8,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
 
-// Styling
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: '100%'
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  typography: {
-    padding: theme.spacing(2)
-  }
-}))
-
 // Functional Component
 function ExerciseList (props) {
-  const classes = useStyles()
-  const { selectedExercises, setSeletectedExercises } = props
+  const { selectedExercises, setSeletectedExercises, makeStyles } = props
+  const classes = makeStyles()
 
   const handleToggle = value => () => {
     const currentIndex = selectedExercises.indexOf(value)

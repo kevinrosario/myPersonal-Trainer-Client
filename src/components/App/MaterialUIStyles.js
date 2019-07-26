@@ -8,7 +8,7 @@ export default makeStyles(theme => ({
   },
   paper: {
     width: '100%',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(6),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -46,5 +46,23 @@ export default makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 200
+  },
+  exerciseForms: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  dialogActions: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
   }
 }))

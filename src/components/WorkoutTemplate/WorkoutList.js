@@ -25,7 +25,7 @@ function WorkoutList (props) {
   }, [])
 
   const workoutTemplatesArr = workoutTemplates.map(workoutTemplate => {
-    const labelId = `checkbox-list-secondary-label-${workoutTemplate.name}`
+    const labelId = `workout-template-id-${workoutTemplate._id}`
     const exercisesList = workoutTemplate.exercises.map(exercise => <li key={exercise._id}>{exercise.name}</li>)
     return (
       <ListItem key={workoutTemplate._id} component={Link} to={`/edit-workout/${workoutTemplate._id}`} button alignItems='center' divider={true}>
@@ -60,7 +60,11 @@ function WorkoutList (props) {
             List of Workouts
           </Typography>
           <List className={classes.root}>
-            {workoutTemplatesArr}
+            {workoutTemplatesArr.length !== 0
+              ? workoutTemplatesArr
+              : <Typography variant="h6" align='center'>
+                New User? Click on + to add a new workout!
+              </Typography>}
           </List>
         </div>
       </Container>

@@ -8,6 +8,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import EditWorkoutTemplate from './../WorkoutTemplate/EditWorkoutTemplate'
 import MainScreen from './../MainScreen/MainScreen'
+import HomeComponent from './../HomeComponent/HomeComponent'
 import Timer from './../Timer/Timer'
 import makeStyles from './MaterialUIStyles.js'
 
@@ -48,8 +49,11 @@ function App () {
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
       <Header user={user} >
-        <Route path='/user-auth' render={() => (
-          <UserAuth open={true} setUser={setUser} />
+        <Route exact path='/' render={() => (
+          <HomeComponent/>
+        )} />
+        <Route exact path='/user-auth' render={() => (
+          <UserAuth open={true} setUser={setUser} makeStyles={makeStyles} />
         )} />
         <AuthenticatedRoute user={user} path='/sign-out' render={() => (
           <SignOut

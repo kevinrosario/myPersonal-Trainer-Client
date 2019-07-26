@@ -29,18 +29,16 @@ function MainScreen (props) {
         />
         : ''}
       {/* Set workout list */}
-      {workoutTemplates !== 0
-        ? <WorkoutList
-          user={user}
-          makeStyles={makeStyles}
-          workoutTemplate={workoutTemplate}
-          setWorkoutTemplate={setWorkoutTemplate}
-          workoutTemplates={workoutTemplates}
-          setWorkoutTemplates={setWorkoutTemplates}
-          exercisesDialogHandler={exercisesDialogHandler}
-          setUnfinishedExercises={setUnfinishedExercises}
-        />
-        : ''}
+      <WorkoutList
+        user={user}
+        makeStyles={makeStyles}
+        workoutTemplate={workoutTemplate}
+        setWorkoutTemplate={setWorkoutTemplate}
+        workoutTemplates={workoutTemplates}
+        setWorkoutTemplates={setWorkoutTemplates}
+        exercisesDialogHandler={exercisesDialogHandler}
+        setUnfinishedExercises={setUnfinishedExercises}
+      />
     </Fragment>
   )
 }

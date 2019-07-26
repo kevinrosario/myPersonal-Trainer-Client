@@ -1,48 +1,31 @@
 import React, { Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
-import { withSnackbar } from 'notistack'
-import { updateExercise } from '../../api/workout'
-import { makeStyles } from '@material-ui/core/styles'
-
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
+import { withRouter } from 'react-router-dom'
+import { withSnackbar } from 'notistack'
+import { updateExercise } from '../../api/workout'
+import messages from '../Messages/messages'
 
-const useStyles = makeStyles(theme => ({
-  exerciseForms: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  dialogActions: {
-    width: '100%',
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-}))
 // Functional Component
 function EditExerciseDialog (props) {
   const { editExercisesDialogHandler, exercise, setExercise, user,
-    workoutTemplate, setWorkoutTemplate } = props
-  const classes = useStyles()
-
-  // const { open, history, user, selectedExercises,
-  //   exerciseList, setExerciseList, setSeletectedExercises,
-  //   dialogHandler } = props
+    workoutTemplate, setWorkoutTemplate, makeStyles, enqueueSnackbar } = props
+  const classes = makeStyles()
 
   const handleSave = event => {
     updateExercise(exercise, user, workoutTemplate._id)
       .then(response => {
+        enqueueSnackbar(messages.updatedSuccessfully, { variant: 'success' })
         setWorkoutTemplate(response.data.workoutTemplate)
       })
       .then(editExercisesDialogHandler)
-      .catch(console.error)
+      .catch(error => {
+        enqueueSnackbar(messages.updateFailed, { variant: 'error' })
+        console.error(error)
+      })
   }
 
   const handleChange = name => event => {
@@ -72,7 +55,7 @@ function EditExerciseDialog (props) {
             />
             <TextField
               id="restTime"
-              label="Rest Time"
+              label="Rest Time (seconds)"
               value={exercise.restTime}
               type="number"
               onChange={handleChange('restTime')}
@@ -89,7 +72,7 @@ function EditExerciseDialog (props) {
             Cancel
           </Button>
           <Button
-            color="secondary"
+            color="primary"
             variant="contained"
             onClick={handleSave}
           >

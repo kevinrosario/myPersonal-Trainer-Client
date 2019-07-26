@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 import { signIn, signUp } from '../../api/auth'
-import messages from '../AutoDismissAlert/messages'
+import messages from '../Messages/messages'
 
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -16,6 +16,7 @@ function UserAuth (props) {
   const [open, setOpen] = useState(props.open)
   const [signUpForm, setSignUpForm] = useState(false)
   const [credentials, setCredentials] = useState({ email: '', password: '', passwordConfirmation: '' })
+  const { makeStyles } = props
 
   const handleForms = () => {
     setSignUpForm(!signUpForm)
@@ -65,8 +66,8 @@ function UserAuth (props) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogContent>
           {!signUpForm
-            ? <SignInForm handleForms={handleForms} credentials={credentials} handleSubmit={handleSubmit} handleChange={handleChange} />
-            : <SignUpForm handleForms={handleForms} credentials={credentials} handleSubmit={handleSubmit} handleChange={handleChange} />}
+            ? <SignInForm makeStyles={makeStyles} handleForms={handleForms} credentials={credentials} handleSubmit={handleSubmit} handleChange={handleChange} />
+            : <SignUpForm makeStyles={makeStyles} handleForms={handleForms} credentials={credentials} handleSubmit={handleSubmit} handleChange={handleChange} />}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
