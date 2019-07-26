@@ -3,7 +3,7 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
+// import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import TextField from '@material-ui/core/TextField'
 import EditExerciseList from './EditExerciseList'
 import Container from '@material-ui/core/Container'
@@ -102,9 +102,6 @@ function EditWorkoutTemplate (props) {
         </div>
       </Container>
       <div className={classes.add}>
-        <Fab aria-label="Start Exercise" className={classes.fab}>
-          <FitnessCenterIcon />
-        </Fab>
         <Fab aria-label="Save Exercise" className={classes.fab} color="secondary" onClick={handleUpdate}>
           <SaveIcon />
         </Fab>
@@ -118,5 +115,9 @@ function EditWorkoutTemplate (props) {
     </Fragment>
   )
 }
+
+// <Fab aria-label="Start Exercise" className={classes.fab}>
+//   <FitnessCenterIcon />
+// </Fab>
 
 export default withSnackbar(withRouter(EditWorkoutTemplate))

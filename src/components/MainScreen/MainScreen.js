@@ -7,7 +7,8 @@ import WorkoutList from './../WorkoutTemplate/WorkoutList'
 function MainScreen (props) {
   const { user, workoutTemplates, setWorkoutTemplates, exercisesDialog, exercisesDialogHandler,
     workoutTemplate, setWorkoutTemplate, selectedExercises, setSeletectedExercises, exerciseList,
-    setExerciseList, setUnfinishedExercises, makeStyles } = props
+    setExerciseList, setUnfinishedExercises, setCurrentExercise, setRestTime,
+    setSets, makeStyles } = props
 
   setWorkoutTemplate(null)
 
@@ -38,6 +39,9 @@ function MainScreen (props) {
         setWorkoutTemplates={setWorkoutTemplates}
         exercisesDialogHandler={exercisesDialogHandler}
         setUnfinishedExercises={setUnfinishedExercises}
+        setCurrentExercise={setCurrentExercise}
+        setRestTime={setRestTime}
+        setSets={setSets}
       />
     </Fragment>
   )

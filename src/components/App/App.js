@@ -21,11 +21,13 @@ function App () {
   const [exercise, setExercise] = useState([])
   const [exerciseList, setExerciseList] = useState([])
   const [user, setUser] = useState(null)
-  const [restTime, setRestTime] = useState(3)
+  const [restTime, setRestTime] = useState(0)
+  const [sets, setSets] = useState(0)
   const [timerInterval, setTimerInterval] = useState(null)
   const [finishedExercises, setFinishedExercises] = useState([])
   const [unfinishedExercises, setUnfinishedExercises] = useState([])
   const [currentExercise, setCurrentExercise] = useState(null)
+  makeStyles()
 
   const exercisesDialogHandler = event => {
     setExercisesDialog(!exercisesDialog)
@@ -47,7 +49,7 @@ function App () {
   }
 
   return (
-    <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+    <SnackbarProvider maxSnack={3} autoHideDuration={2000} >
       <Header user={user} >
         <Route exact path='/' render={() => (
           <HomeComponent/>
@@ -97,6 +99,9 @@ function App () {
             exerciseList={exerciseList}
             setExerciseList={setExerciseList}
             setUnfinishedExercises={setUnfinishedExercises}
+            setCurrentExercise={setCurrentExercise}
+            setRestTime={setRestTime}
+            setSets={setSets}
           />
         )} />
         <AuthenticatedRoute user={user} exact path='/workout-timer' render={() => (
@@ -113,6 +118,8 @@ function App () {
             setUnfinishedExercises={setUnfinishedExercises}
             currentExercise={currentExercise}
             setCurrentExercise={setCurrentExercise}
+            sets={sets}
+            setSets={setSets}
           />
         )} />
       </Header>
