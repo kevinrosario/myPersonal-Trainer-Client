@@ -1,6 +1,6 @@
 # myPersonal Trainer
 
-This is the front end of myPersonal Trainer application which is an application to keep track of an user workout routines. It's designed to let users create workouts and edit them adding or removing exercises. Users can create and edit workouts only by logging in the application.
+This is the front end of myPersonal Trainer application which is an application to keep track of users workout routines. It's designed to let users create workouts and edit them adding or removing exercises. Users can create and edit workouts only by logging in the application.
 
 ### User Stories
 - As a unregistered user, I would like to sign up with email and password.
@@ -35,6 +35,20 @@ Due to the fact that I had four days to make this project, I decided to set-up t
 ##### Future Iterations
 I want to add a timer that will help me rest between sets of every exercise in the workout.
 
+##### Screenshot
+![screenshot](./public/screenshot.png)
+
+#### Set-up
+1. Download this template.
+2. Unzip and rename the template directory
+3. Move into the new project and git init.
+4. Empty README.md and fill with your own content.
+5. Replace myPersonal-Trainer-Client in package.json with your projects name.
+6. Replace the "homepage" field in package.json with your (public) Github account name and repository name.
+7. Install dependencies with npm install.
+git add and git commit your changes.
+8. Run the development server with npm start.
+
 ##### Sites and Images:
 
 [Front-End Repository](https://github.com/kevinrosario/myPersonal-Trainer-Client)
@@ -46,5 +60,3 @@ I want to add a timer that will help me rest between sets of every exercise in t
 [Back-end app](https://mypersonal-trainer.herokuapp.com/)
 
 [Wireframe](https://imgur.com/p2kaWSt)
-
-[IRB](https://imgur.com/wDuDf0O)
